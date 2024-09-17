@@ -1,12 +1,5 @@
 pipeline {
-    agent {
-        k8s {
-            label 'my-pod'
-            defaultContainer 'jnlp'
-            yamlFile 'https://github.com/Hanif-suhail/cicd_project3/blob/feature/jenkins-pod-template.yml' 
-        }
-    }
- 
+    agent any 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Using the ID set in Jenkins
         DOCKER_IMAGE = 'hanifsuhail/task_management_app' // Replace with your DockerHub username
