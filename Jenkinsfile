@@ -3,6 +3,9 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub') // Using the ID set in Jenkins
         DOCKER_IMAGE = 'hanifsuhail/task_management_app' // Replace with your DockerHub username
+        KUBERNETES_DEPLOYMENT_FILE = 'deployment.yml'
+        KUBERNETES_SERVICE_FILE = 'service.yml'
+
     }
     stages {
         stage("checkout to feature branch") {
@@ -39,16 +42,35 @@ pipeline {
                 sh 'docker rmi ${DOCKER_IMAGE}:${BUILD_NUMBER}'
             }
         }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    // Use kubectl to apply the deployment and service YAML
+                    sh "kubectl apply -f ${KUBERNETES_DEPLOYMENT_FILE}"
+                    sh "kubectl apply -f ${KUBERNETES_SERVICE_FILE}"
+                }
+            }
+        }
+        stage('Expose Application') {
+            steps {
+                // Get Minikube service URL
+                script {
+                    def url = sh(script: "minikube service task-management-service --url", returnStdout: true).trim()
+                    echo "Application is running at: ${url}"
+                }
+            }
+        }
+
     }
 
     post {
         success {
-            echo "Docker image ${DOCKER_IMAGE}:${BUILD_NUMBER} has been successfully pushed to DockerHub."
+            echo "Docker image ${DOCKER_IMAGE}:${BUILD_NUMBER} has been successfully pushed to DockerHub. Application Running at ${url}"
         }
         failure {
             echo "Build failed!"
         }
     }
 }
-
 
