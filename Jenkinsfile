@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        k8s {
+        kubernetes {
             label 'my-pod'
             defaultContainer 'jnlp'
             yamlFile 'https://github.com/Hanif-suhail/cicd_project3/blob/feature/jenkins-pod-template.yml' 
