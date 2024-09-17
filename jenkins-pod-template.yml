@@ -5,6 +5,7 @@ metadata:
   labels:
     app: jenkins-agent
 spec:
+  serviceAccountName: jenkins
   containers:
     - name: jnlp
       image: jenkins/inbound-agent:latest
@@ -39,3 +40,4 @@ spec:
     - name: docker-socket
       hostPath:
         path: /var/run/docker.sock
+  namespace: jenkins
