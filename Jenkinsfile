@@ -3,7 +3,7 @@ pipeline {
         kubernetes {
             label 'my-pod'
             defaultContainer 'jnlp'
-            yamlFile 'https://github.com/Hanif-suhail/cicd_project3/blob/feature/jenkins-pod-template.yml' 
+            yamlFile 'jenkins-pod-template.yml' 
         }
     }
  
