@@ -22,16 +22,17 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                script {
+                container('docker') {
                     // Build Docker image
                     sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .'
                 }
+                
             }
         }
 
         stage('Push Docker Image to DockerHub') {
             steps {
-                script {
+                container('docker') {
                     // Log in to DockerHub
                     sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
                     
@@ -43,8 +44,10 @@ pipeline {
 
         stage('Cleanup Docker Images') {
             steps {
+                container('docker') {
                 // Clean up the Docker images to save space
                 sh 'docker rmi ${DOCKER_IMAGE}:${BUILD_NUMBER}'
+                }
             }
         }
 
