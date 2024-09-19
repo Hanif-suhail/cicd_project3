@@ -60,16 +60,6 @@ pipeline {
         }
       }
     }
-    
-    stage('Expose Application') {
-      steps {
-                // Get Minikube service URL
-        script {
-          def url = sh(script: "minikube service task-management-service --url", returnStdout: true).trim()
-          echo "Application is running at: ${url}"
-        }
-      }
-    }
   }
 }
 
