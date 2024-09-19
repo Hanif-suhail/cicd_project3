@@ -53,7 +53,7 @@ pipeline {
 
     stage('Deploy to Kubernetes') {
       steps {
-        script {
+        container('kubectl') {
                     // Use kubectl to apply the deployment and service YAML
           sh "kubectl apply -f ${KUBERNETES_DEPLOYMENT_FILE}"
           sh "kubectl apply -f ${KUBERNETES_SERVICE_FILE}"
