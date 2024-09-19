@@ -50,6 +50,7 @@ pipeline {
         }
       }
     }
+
     stage('Deploy to Kubernetes') {
       steps {
         script {
@@ -59,6 +60,7 @@ pipeline {
         }
       }
     }
+    
     stage('Expose Application') {
       steps {
                 // Get Minikube service URL
