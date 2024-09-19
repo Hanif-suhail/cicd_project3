@@ -50,6 +50,24 @@ pipeline {
         }
       }
     }
+    stage('Deploy to Kubernetes') {
+      steps {
+        script {
+                    // Use kubectl to apply the deployment and service YAML
+          sh "kubectl apply -f ${KUBERNETES_DEPLOYMENT_FILE}"
+          sh "kubectl apply -f ${KUBERNETES_SERVICE_FILE}"
+        }
+      }
+    }
+    stage('Expose Application') {
+      steps {
+                // Get Minikube service URL
+        script {
+          def url = sh(script: "minikube service task-management-service --url", returnStdout: true).trim()
+          echo "Application is running at: ${url}"
+        }
+      }
+    }
   }
 }
 
