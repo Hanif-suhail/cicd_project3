@@ -3,8 +3,6 @@ kind: Pod
 metadata:
   name: jenkins-pod
 spec:
-  securityContext:
-    runAsUser: 1000
   containers:
   - name: docker
     image: docker:20.10.8-dind
