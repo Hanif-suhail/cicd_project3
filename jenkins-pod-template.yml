@@ -25,6 +25,8 @@ spec:
         memory: "512Mi"
   - name: kubectl
     image: bitnami/kubectl:1.31.1
+    securityContext:
+      runAsUser: 1000
     command:
       - cat
     tty: true
