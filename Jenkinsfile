@@ -1,7 +1,8 @@
 pipeline {
   agent {
     kubernetes {
-      yamlFile 'jenkins-pod-template.yml' 
+      yamlFile 'jenkins-pod-template.yml'
+      retries 2
     }
   }
   environment {

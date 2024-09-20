@@ -3,6 +3,8 @@ kind: Pod
 metadata:
   name: jenkins-pod
 spec:
+  securityContext:
+    runAsUser: 1000
   containers:
   - name: docker
     image: docker:20.10.8-dind
@@ -23,8 +25,6 @@ spec:
         memory: "512Mi"
   - name: kubectl
     image: bitnami/kubectl:1.31.1
-    securityContext:
-      privileged: true
     command:
       - cat
     tty: true
