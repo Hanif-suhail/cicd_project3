@@ -25,7 +25,7 @@ pipeline {
       steps {
         container('docker') {
                     // Build Docker image
-          sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} .'
+          sh 'docker build -t ${DOCKER_IMAGE}:${BUILD_NUMBER} -t ${DOCKER_IMAGE}:latest .'
         }
                 
       }
@@ -39,6 +39,7 @@ pipeline {
                     
                     // Push Docker image to DockerHub
           sh 'docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}'
+          sh 'docker push ${DOCKER_IMAGE}:latest'
         }
       }
     }
