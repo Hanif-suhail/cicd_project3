@@ -3,6 +3,7 @@ kind: Pod
 metadata:
   name: jenkins-pod
 spec:
+  serviceAccount: jenkins  
   containers:
   - name: docker
     image: docker:20.10.8-dind
